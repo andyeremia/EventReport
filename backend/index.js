@@ -29,6 +29,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const dbConfig = require("./app/config/db.config");
 const db = require("./app/models");
+const helper = require("./app/helpers");
+
+// MongoDB Connection
+// Add event codes and tags
 
 db.mongoose
   .connect(
@@ -40,6 +44,7 @@ db.mongoose
   )
   .then(() => {
     console.log("Successfully connected to MongoDB.");
+    helper.initial();
   })
   .catch((err) => {
     console.error("Connection error", err);
@@ -50,6 +55,9 @@ db.mongoose
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to EreX!" });
 });
+
+// routes
+require("./app/routes/photo.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
