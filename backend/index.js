@@ -29,7 +29,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const dbConfig = require("./app/config/db.config");
 const db = require("./app/models");
-const helper = require("./app/helpers");
 
 // MongoDB Connection
 // Add event codes and tags
@@ -44,7 +43,6 @@ db.mongoose
   )
   .then(() => {
     console.log("Successfully connected to MongoDB.");
-    helper.initial();
   })
   .catch((err) => {
     console.error("Connection error", err);

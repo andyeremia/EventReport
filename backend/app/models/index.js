@@ -16,8 +16,6 @@ db.mongoose = mongoose;
 
 db.admin = require("./admin.model");
 db.event = require("./event.model");
-db.code = require("./code.model");
-db.tag = require("./tag.model");
 db.photo = require("./photo.model");
 
 db.CODES = [1, 2, 3];

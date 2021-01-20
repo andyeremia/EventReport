@@ -1,5 +1,15 @@
 const mongoose = require("mongoose");
 
+//  Alert Code:
+//  1: Cutremur
+//  2: Tsunami
+//  3: Bombardament
+
+//  Tag:
+//  Minor
+//  Periculos
+//  Dezastruos
+
 const Event = mongoose.model(
   "Event",
   new mongoose.Schema({
@@ -15,19 +25,13 @@ const Event = mongoose.model(
         required: true,
       },
     },
-    code: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Code",
-    },
+    code: Number,
     desc: String,
     photo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Photo",
     },
-    tag: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Tag",
-    },
+    tag: String,
   })
 );
 
