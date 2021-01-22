@@ -1,8 +1,9 @@
 import React from 'react';
-import {Text} from 'react-native';
+
+import EventReport from './src/screens/EventReport';
 
 const App = () => {
-  return <Text>Hello</Text>;
+  return <EventReport />;
 };
 
 export default App;
