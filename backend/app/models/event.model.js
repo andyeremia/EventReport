@@ -15,15 +15,8 @@ const Event = mongoose.model(
   new mongoose.Schema({
     time: Date,
     location: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        required: true,
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
-      },
+      lat: Number,
+      lng: Number,
     },
     code: Number,
     desc: String,
