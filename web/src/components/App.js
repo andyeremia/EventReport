@@ -1,11 +1,21 @@
 import React from "react";
+import { Router, Route, Switch } from "react-router-dom";
 
-// maps api key AIzaSyAY5hmRJKfKisj84JZLk1sFeJN-625dBFw
-import MapComponent from "./MapComponent";
+import EventDetails from "./EventDetails";
+import EventReport from "./EventReport";
+import Map from "./Map";
+import history from "../history";
 
 const App = () => {
-  // return <MapDisplay />;
-  return <MapComponent />;
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route path="/" exact component={Map} />
+        <Route path="/event/:id" exact component={EventDetails} />
+        <Route path="/event/new" exact component={EventReport} />
+      </Switch>
+    </Router>
+  );
 };
 
 export default App;
