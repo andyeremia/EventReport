@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import Geolocation from 'react-native-geolocation-service';
 import * as ImagePicker from 'react-native-image-picker';
 
+import {reportEvent} from '../services';
 import Spacer from './Spacer';
 
 const EventReportForm = ({headerText}) => {
@@ -36,7 +37,6 @@ const EventReportForm = ({headerText}) => {
           },
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          //To Check, If Permission is granted
           setGrantedPermission(true);
           getLocation();
         } else {
@@ -91,7 +91,6 @@ const EventReportForm = ({headerText}) => {
     };
     ImagePicker.launchImageLibrary(options, (response) => {
       if (response.uri) {
-        console.log(response);
         setPhoto(response);
       }
     });
@@ -103,27 +102,71 @@ const EventReportForm = ({headerText}) => {
     };
     ImagePicker.launchCamera(options, (response) => {
       if (response.uri) {
-        console.log(response);
         setPhoto(response);
       }
     });
   };
 
+  const createFormData = (image) => {
+    const data = new FormData();
+
+    data.append('photo', {
+      name: image.fileName,
+      type: image.type,
+      uri: image.uri.replace('content://', ''),
+    });
+
+    return data;
+  };
+
+  const formValidation = () => {
+    let flag = true;
+    if (!location) {
+      Alert.alert('Error', 'You must enable location for this app!');
+      flag = false;
+    } else if (desc === '') {
+      Alert.alert('Error', 'You must write a description for the event!');
+      flag = false;
+    } else if (!code) {
+      Alert.alert('Error', 'You must choose a code for the event!');
+      flag = false;
+    } else if (!tag) {
+      Alert.alert('Error', 'You must choose a tag for the event!');
+      flag = false;
+    } else if (!photo) {
+      Alert.alert('Error', 'You must choose a photo for the event!');
+      flag = false;
+    }
+
+    return flag;
+  };
+
+  const clearForm = () => {
+    setDesc('');
+    setCode(null);
+    setTag(null);
+    setPhoto(null);
+  };
+
   const handleSubmit = () => {
-    const obj = {
-      time: Date.now(),
-      location: {
-        lat: location.lat,
-        lng: location.lng,
-      },
-      code: code, // convertire la number
-      desc: desc,
-      tag: tag,
-      photo: null, // trebuie vazut cum iau poza
-    };
-    // OBJ validation
-    // reportEvent(); //creare serviciu
-    // form clear
+    if (formValidation()) {
+      const obj = {
+        time: Date.now(),
+        location: {
+          lat: location.lat,
+          lng: location.lng,
+        },
+        code: parseInt(code),
+        desc: desc,
+        tag: tag,
+        photo: createFormData(photo),
+      };
+      console.log(obj);
+      reportEvent(obj); //creare serviciu
+      clearForm();
+    } else {
+      clearForm();
+    }
   };
 
   return (
@@ -245,7 +288,7 @@ const EventReportForm = ({headerText}) => {
       <Button
         style={[styles.submitButton]}
         title="REPORT EVENT"
-        onPress={() => console.log('handleSubmit()')}
+        onPress={() => handleSubmit()}
       />
     </>
   );
