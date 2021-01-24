@@ -113,7 +113,7 @@ const EventReportForm = ({headerText}) => {
     data.append('photo', {
       name: image.fileName,
       type: image.type,
-      uri: image.uri.replace('content://', ''),
+      uri: image.uri,
     });
 
     return data;
@@ -159,10 +159,10 @@ const EventReportForm = ({headerText}) => {
         code: parseInt(code),
         desc: desc,
         tag: tag,
-        photo: createFormData(photo),
       };
-      console.log(obj);
-      reportEvent(obj); //creare serviciu
+      //const eventInfo = createFormData(photo, obj);
+      const eventInfo = createFormData(photo, {cod: '123'});
+      reportEvent(eventInfo); //creare serviciu
       clearForm();
     } else {
       clearForm();

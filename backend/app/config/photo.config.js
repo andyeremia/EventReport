@@ -1,20 +1,11 @@
-const fs = require("fs");
 var multer = require("multer");
 
-var DIR = "./public/uploads/";
-
 var storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    var path =
-      DIR + req.params.file.replace(".", "_") + "/" + new Date().getTime();
-    req.pathName = path;
-    console.log("path: ", path);
-    fs.mkdir(path, { recursive: true }, (err) => {
-      callback(null, path);
-    });
+  destination(req, file, callback) {
+    callback(null, "../web/public");
   },
-  filename: function (req, file, callback) {
-    callback(null, file.originalname);
+  filename(req, file, callback) {
+    callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`);
   },
 });
 var upload = multer({ storage: storage });

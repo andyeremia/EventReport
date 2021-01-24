@@ -1,9 +1,13 @@
 import event from '../api';
+import {Alert} from 'react-native';
 
-export const reportEvent = async (obj) => {
+export const reportEvent = async (eventInfo) => {
   try {
-    await event
-      .post('/event', obj)
+    fetch('http://4ec511260352.ngrok.io/photo', {
+      method: 'POST',
+      body: eventInfo,
+    })
+      .then((response) => response.json())
       .then((response) => {
         console.log(response);
         Alert.alert('Success', 'You successfully reported the event!');
