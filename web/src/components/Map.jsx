@@ -13,7 +13,6 @@ const Map = () => {
       console.log(response.data);
       setEvents(response.data);
     });
-    //console.log(fetched);
   }, []);
   const [viewport, setViewport] = useState({
     latitude: 44.439663,

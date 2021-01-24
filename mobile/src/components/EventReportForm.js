@@ -160,11 +160,10 @@ const EventReportForm = ({headerText}) => {
         desc: desc,
         tag: tag,
       };
-      //const eventInfo = createFormData(photo, obj);
-      const eventInfo = createFormData(photo, {cod: '123'});
-      reportEvent(eventInfo); //creare serviciu
+      reportEvent(obj, photo); //creare serviciu
       clearForm();
     } else {
+      //Alert.alert("Error", "Something went wrong... Please try again!");
       clearForm();
     }
   };

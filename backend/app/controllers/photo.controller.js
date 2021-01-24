@@ -4,7 +4,7 @@ const Event = db.event;
 
 exports.upload = async (req, res) => {
   console.log("file", req.file);
-  console.log("body", req.body);
+  //console.log("body", req.body);
   console.log("eventID", req.body.eventId);
 
   const photo = new Photo({
