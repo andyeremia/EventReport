@@ -6,6 +6,10 @@ const Photo = mongoose.model(
     name: String,
     path: String,
     type: String,
+    event: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
+    },
   })
 );
 

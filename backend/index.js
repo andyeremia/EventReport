@@ -43,6 +43,20 @@ db.mongoose
   )
   .then(() => {
     console.log("Successfully connected to MongoDB.");
+    injectAdmins("Eremia", "Andrei", "+40723420935", "andy.eremia97@gmail.com");
+    injectAdmins(
+      "Baetica",
+      "Adrian",
+      "+40732125704",
+      "adrian.baetica14@gmail.com"
+    );
+    injectAdmins("Macari", "Ana", "+40731554825", "macariann@gmail.com");
+    injectAdmins(
+      "Stefanescu",
+      "Simion",
+      "+40730506161",
+      "stefanescusimion@yahoo.co.uk"
+    );
   })
   .catch((err) => {
     console.error("Connection error", err);
@@ -55,9 +69,29 @@ app.get("/", (req, res) => {
 });
 
 // routes
+require("./app/routes/event.routes")(app);
 require("./app/routes/photo.routes")(app);
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+const Admin = db.admin;
+const injectAdmins = (lname, fname, phone, email) => {
+  Admin.estimatedDocumentCount((err, count) => {
+    if (!err && count === 0) {
+      new Admin({
+        lname: lname,
+        fname: fname,
+        phone: phone,
+        email: email,
+      }).save((err) => {
+        if (err) {
+          console.log("error", err);
+        }
+        console.log(`added ${lname} ${fname} to admins collection`);
+      });
+    }
+  });
+};

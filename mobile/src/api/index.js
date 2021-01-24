@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'http://localhost:8080', // schimb cu forwarding de la ngrok
+  baseURL: 'http://0b1942521afd.ngrok.io', // schimb cu forwarding de la ngrok
 });

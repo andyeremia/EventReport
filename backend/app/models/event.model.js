@@ -20,10 +20,6 @@ const Event = mongoose.model(
     },
     code: Number,
     desc: String,
-    photo: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Photo",
-    },
     tag: String,
   })
 );

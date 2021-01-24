@@ -113,7 +113,7 @@ const EventReportForm = ({headerText}) => {
     data.append('photo', {
       name: image.fileName,
       type: image.type,
-      uri: image.uri.replace('content://', ''),
+      uri: image.uri,
     });
 
     return data;
@@ -159,12 +159,11 @@ const EventReportForm = ({headerText}) => {
         code: parseInt(code),
         desc: desc,
         tag: tag,
-        photo: createFormData(photo),
       };
-      console.log(obj);
-      reportEvent(obj); //creare serviciu
+      reportEvent(obj, photo); //creare serviciu
       clearForm();
     } else {
+      //Alert.alert("Error", "Something went wrong... Please try again!");
       clearForm();
     }
   };

@@ -7,6 +7,9 @@
 # Production #
 /build
 
+# API_KEY #
+env.json
+
 # Misc #
 .DS_Store
 .env.local
