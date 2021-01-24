@@ -20,6 +20,28 @@ const EventDetailsPage = () => {
     });
   }, []);
 
+  const renderDate = (data) => {
+    var date = new Date(data);
+    const dateString = date.toString();
+    const dateArray = dateString.split(" ");
+    if (dateArray.length > 4) {
+      const dateArrayTime = dateArray[4].split(":");
+      const messageTime = dateArrayTime[0] + ":" + dateArrayTime[1];
+      const messageDate =
+        dateArray[2] +
+        " " +
+        dateArray[1] +
+        " " +
+        dateArray[3] +
+        "  " +
+        messageTime;
+
+      return messageDate;
+    } else {
+      return;
+    }
+  };
+
   // ca props pt CustomMap trebuie pus event-ul sau un obiect cu id, lat, long
   return (
     <div className="event-details-page">
@@ -60,7 +82,7 @@ const EventDetailsPage = () => {
             <span>
               <span className="detail-name">Time:</span>{" "}
               <span className="detail-value">
-                {Date(fetchedEvent.eventRes.time)}
+                {renderDate(fetchedEvent.eventRes.time)}
               </span>
             </span>
             <span>

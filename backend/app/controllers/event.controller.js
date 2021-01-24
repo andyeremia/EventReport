@@ -47,9 +47,9 @@ function sendEmail(to, subject, text) {
 
   transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
-      console.log("Error occurs");
+      console.log("Error occured: ", err);
     }
-    console.log("Email sent!!!");
+    console.log("Email successfully sent to: ", to);
   });
 }
 
@@ -85,7 +85,11 @@ async function sendSMS(phoneNumber, message) {
         },
       }
     )
-    .then((response) => console.log(response))
+    .then((response) => {
+      console.log("Sms successfully sent to: ", phoneNumber);
+      //console.log(response)
+    })
+
     .catch((error) => console.log(error));
 }
 
@@ -106,29 +110,47 @@ exports.createEvent = (req, res) => {
     tag: req.body.tag,
   });
 
-  // let decod;
-  // if (req.body.code == 1) {
-  //   decod = "cutremur";
-  // } else if (req.body.code == 2) {
-  //   decod = "tsunami";
-  // } else if (req.body.code == 3) {
-  //   decod = "bombardament";
-  // }
-
   event.save(async (err, event) => {
     if (err) {
       return res.status(500).send({ message: err });
     } else {
-      // Admin.find((err, admins) => {
-      //   if (err) {
-      //     return res.status(500).send({ message: err });
-      //   } else {
+      let decod;
+      if (event.code === 1) {
+        decod = "cutremur";
+      } else if (event.code == 2) {
+        decod = "tsunami";
+      } else if (event.code == 3) {
+        decod = "bombardament";
+      }
 
-      //     admins.forEach(admin => {
-      //       notify.notifyAdmins(admin.email, admin.phone, "Event Report", message)
-      //     })
-      //   }
-      // });
+      let messageToAdmins =
+        "La " +
+        renderDate(event.time) +
+        " s-a produs un " +
+        decod +
+        " " +
+        event.tag +
+        " la coordonatele: " +
+        req.body.location.lat +
+        " latitudine" +
+        " " +
+        req.body.location.lng +
+        " longitudine!";
+      Admin.find((err, admins) => {
+        if (err) {
+          return res.status(500).send({ message: err });
+        } else {
+          admins.forEach((admin) => {
+            console.log(admin);
+            notifyAdmins(
+              admin.email,
+              admin.phone,
+              "Event Report",
+              messageToAdmins
+            );
+          });
+        }
+      });
       return res.status(200).send(event);
     }
   });
