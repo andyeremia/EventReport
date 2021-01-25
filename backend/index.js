@@ -43,20 +43,6 @@ db.mongoose
   )
   .then(() => {
     console.log("Successfully connected to MongoDB.");
-    injectAdmins("Eremia", "Andrei", "+40723420935", "andy.eremia97@gmail.com");
-    injectAdmins(
-      "Baetica",
-      "Adrian",
-      "+40732125704",
-      "adrian.baetica14@gmail.com"
-    );
-    injectAdmins("Macari", "Ana", "+40731554825", "macariann@gmail.com");
-    injectAdmins(
-      "Stefanescu",
-      "Simion",
-      "+40730506161",
-      "stefanescusimion@yahoo.co.uk"
-    );
   })
   .catch((err) => {
     console.error("Connection error", err);

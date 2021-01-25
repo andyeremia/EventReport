@@ -9,6 +9,11 @@
 
 # API_KEY #
 env.json
+constants/
+web/src/constants/index.js
+
+# PERSONAL_DATA #
+inject.js
 
 # Misc #
 .DS_Store
