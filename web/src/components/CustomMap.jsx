@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 
+import API_KEY from "../constants";
+
 const CustomMap = ({ event }) => {
   const [viewport, setViewport] = useState({
     latitude: event.lat,
@@ -14,7 +16,7 @@ const CustomMap = ({ event }) => {
     <div>
       <ReactMapGL
         {...viewport}
-        mapboxApiAccessToken="pk.eyJ1IjoiYWRpYjE0IiwiYSI6ImNrazc3M3hpNzA5enEyeG8yd3J6ZDMyOXkifQ.aaJmJI5oUkX-n-l7hZN6eA"
+        mapboxApiAccessToken={API_KEY}
         onViewportChange={(viewport) => {
           setViewport(viewport);
         }}

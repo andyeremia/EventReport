@@ -3,6 +3,7 @@ import ReactMapGL, { Marker } from "react-map-gl";
 
 import CustomButton from "./CustomButton.jsx";
 
+import API_KEY from "../constants";
 import { getAllEvents } from "../services";
 
 const Map = () => {
@@ -38,7 +39,7 @@ const Map = () => {
     <div>
       <ReactMapGL
         {...viewport}
-        mapboxApiAccessToken="pk.eyJ1IjoiYWRpYjE0IiwiYSI6ImNrazc3M3hpNzA5enEyeG8yd3J6ZDMyOXkifQ.aaJmJI5oUkX-n-l7hZN6eA"
+        mapboxApiAccessToken={API_KEY}
         onViewportChange={(viewport) => {
           setViewport(viewport);
         }}
